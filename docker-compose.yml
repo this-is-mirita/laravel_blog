@@ -1,0 +1,21 @@
+
+services:
+    postgres:
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: mirita          # Твой пользователь базы данных
+            POSTGRES_PASSWORD: mirita      # Пароль для этого пользователя
+            POSTGRES_DB: my_blog_laravel  # Твоя база данных
+        ports:
+            - 5432:5432                   # Проброс порта 5432 на локальной машине
+        volumes:
+            - my-db-volume:/var/lib/postgresql/data  # Сохраняем данные базы в volume
+        networks:
+            - app-network                 # Подключаем к сети
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    my-db-volume:
