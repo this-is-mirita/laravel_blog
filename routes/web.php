@@ -11,10 +11,12 @@ use App\Http\Controllers\Admin\Main\IndexController as AdminMainController;
 use App\Http\Controllers\Admin\Category\IndexController as AdminCategoryController;
 
 use Illuminate\Support\Facades\Route;
-
-Route::prefix('main')->name('main.')->group(function () {
-    Route::get('/', IndexController::class)->name('index');
+// vue start page
+Route::get('/', function () {
+    return view('index'); // Название blade-файла
 });
+
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::name('main.')->group(function () {
@@ -34,3 +36,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 Auth::routes();
+
+
+
+//Route::prefix('main')->name('main.')->group(function () {
+//    Route::get('/', IndexController::class)->name('index');
+//});
