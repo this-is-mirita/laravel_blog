@@ -13,7 +13,7 @@ class UpdateController extends Controller
         // TODO: Implement __invoke() method.
         $date = $request->validated();
         $category->update($date);
-        return view('admin.categories.show', compact('category'));
+        return view('admin.category.show', compact('category'));
 
     }
 }
