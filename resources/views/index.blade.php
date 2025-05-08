@@ -13,3 +13,11 @@
 
 </body>
 </html>
+<script>
+
+   const User = function (email, pass){
+        this.email = email
+   }
+   const user1 = new User('qwe','qwe')
+   console.log(user1)
+</script>

@@ -56,7 +56,7 @@ export default {  // Экспортируем компонент
     async created() {  // Метод жизненного цикла Vue, который вызывается при создании компонента
         const response = await fetch('/api/');  // Асинхронный запрос на сервер для получения данных
         this.categories = await response.json();  // Преобразуем ответ в формат JSON и сохраняем в массив categories
-        console.log(this.categories);  // Логируем полученные данные
+        // console.log(this.categories);  // Логируем полученные данные
     }
 };
 </script>
