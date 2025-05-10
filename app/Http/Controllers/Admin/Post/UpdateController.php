@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\UpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
     public function __invoke(UpdateRequest $request, Post $post)
     {
         // TODO: Implement __invoke() method.
-        $date = $request->validated();
-        $post->update($date);
+        $data = $request->validated();
+
+        $post = $this->service->update($data, $post);
+
+
         return view('admin.post.show', compact('post'));
 
     }

@@ -33,7 +33,6 @@
                                 <input class="form-control" value="{{ old('title') }}" type="text" placeholder="Название категории" name="title">
                                 @error('title')
                                 <div class="text-danger">
-                                    Поле должно быть заполнено <br>
                                     {{ $message }}
                                 </div>
                                 @enderror
@@ -45,7 +44,6 @@
                             </div>
                             @error('content')
                             <div class="text-danger">
-                                Поле должно быть заполнено <br>
                                 {{ $message }}
                             </div>
                             @enderror
@@ -64,7 +62,6 @@
                             </div>
                             @error('preview_image')
                             <div class="text-danger">
-                                Поле должно быть заполнено <br>
                                 {{ $message }}
                             </div>
                             @enderror
@@ -82,7 +79,6 @@
                             </div>
                             @error('main_image')
                             <div class="text-danger">
-                                Поле должно быть заполнено <br>
                                 {{ $message }}
                             </div>
                             @enderror
@@ -98,7 +94,6 @@
                             </div>
                             @error('category_id')
                             <div class="text-danger">
-                                Поле должно быть заполнено <br>
                                 {{ $message }}
                             </div>
                             @enderror
@@ -113,6 +108,11 @@
                                     </select>
                                 </div>
                             </div>
+                            @error('tag_ids')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                             <div class="form-group mt-2">
                                 <input type="submit" value="Добавить" class="btn btn-primary">
                             </div>

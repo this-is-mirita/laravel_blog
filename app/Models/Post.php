@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
@@ -10,6 +11,7 @@ class Post extends Model
     protected $table = 'posts';
     // разрешение
     protected $guarded = false;
+    use softDeletes;
 
     public function tags(){
         return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
