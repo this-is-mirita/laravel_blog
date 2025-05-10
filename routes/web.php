@@ -57,10 +57,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', AdminPostController::class)->name('index');
         Route::get('/create', AdminPostCreateController::class)->name('create');
         Route::post('/', AdminPostStoreController::class)->name('store');
-        Route::get('/{tag}', AdminPostShowController::class)->name('show');
-        Route::get('/{tag}/edit', AdminPostEditController::class)->name('edit');
-        Route::patch('/{tag}', AdminPostUpdateController::class)->name('update');
-        Route::delete('/{tag}', AdminPostDeleteController::class)->name('delete');
+        Route::get('/{post}', AdminPostShowController::class)->name('show');
+        Route::get('/{post}/edit', AdminPostEditController::class)->name('edit');
+        Route::patch('/{post}', AdminPostUpdateController::class)->name('update');
+        Route::delete('/{post}', AdminPostDeleteController::class)->name('delete');
     });
 });
 
