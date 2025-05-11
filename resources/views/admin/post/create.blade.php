@@ -52,7 +52,7 @@
                                 <label for="exampleInputFile">Добавить превью</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input value="{{ old('preview_image') }}" type="file" class="custom-file-input" name="preview_image" >
+                                        <input type="file" class="custom-file-input" name="preview_image" >
                                         <label class="custom-file-label">Выбрать файл</label>
                                     </div>
                                     <div class="input-group-append">

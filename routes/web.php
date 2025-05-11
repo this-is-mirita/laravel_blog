@@ -24,6 +24,17 @@ use App\Http\Controllers\Admin\Post\ShowController as AdminPostShowController;
 use App\Http\Controllers\Admin\Post\StoreController as AdminPostStoreController;
 use App\Http\Controllers\Admin\Post\UpdateController as AdminPostUpdateController;
 
+use App\Http\Controllers\Admin\User\IndexController as AdminUserController;
+use App\Http\Controllers\Admin\User\CreateController as AdminUserCreateController;
+use App\Http\Controllers\Admin\User\DeleteController as AdminUserDeleteController;
+use App\Http\Controllers\Admin\User\EditController as AdminUserEditController;
+use App\Http\Controllers\Admin\User\ShowController as AdminUserShowController;
+use App\Http\Controllers\Admin\User\StoreController as AdminUserStoreController;
+use App\Http\Controllers\Admin\User\UpdateController as AdminUserUpdateController;
+
+
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index'); // Название blade-файла
 });
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::name('main.')->group(function () {
         Route::get('/', AdminMainController::class)->name('index');
     });
@@ -62,8 +73,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('/{post}', AdminPostUpdateController::class)->name('update');
         Route::delete('/{post}', AdminPostDeleteController::class)->name('delete');
     });
+
+    Route::name('user.')->prefix('users')->group(function () {
+        Route::get('/', AdminUserController::class)->name('index');
+        Route::get('/create', AdminUserCreateController::class)->name('create');
+        Route::post('/', AdminUserStoreController::class)->name('store');
+        Route::get('/{user}', AdminUserShowController::class)->name('show');
+        Route::get('/{user}/edit', AdminUserEditController::class)->name('edit');
+        Route::patch('/{user}', AdminUserUpdateController::class)->name('update');
+        Route::delete('/{user}', AdminUserDeleteController::class)->name('delete');
+    });
 });
 
+
+Route::get('logout', [LoginController::class, 'logout']);
 
 Auth::routes();
 

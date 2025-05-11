@@ -1,6 +1,16 @@
 <?php
 
-use App\Http\Controllers\Vue\VueIndexController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [VueIndexController::class, 'index']);
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Здесь вы можете зарегистрировать API-маршруты для своего приложения. Эти
+| маршруты загружаются RouteServiceProvider и все они будут присвоены
+| промежуточному ПО группы "api". Сделайте что-то великое!
+|
+*/
+
