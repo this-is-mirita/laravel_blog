@@ -48,6 +48,8 @@ Route::prefix('personal.')->name('personal.')->middleware(['auth', 'verified'])-
         Route::get('/', PersonalMainController::class)->name('index');
     });
 });
+
+
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::name('main.')->group(function () {
         Route::get('/', AdminMainController::class)->name('index');
