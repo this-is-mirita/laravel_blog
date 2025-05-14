@@ -5,16 +5,24 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2 align-items-center">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Пользователи</h1>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Добавить пользователя</a>
-                    </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="m-0">Пользователи</h1>
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Добавить пользователя</a>
                 </div>
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('admin.main.index') }}">Главная</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Пользователи
+                        </li>
+                    </ol>
+                </nav>
             </div>
         </div>
+
 
         <!-- Main content -->
         <section class="content">

@@ -9,8 +9,14 @@
                         <h1 class="m-0">Dashboard</h1>
                     </div>
                     <div class="col-sm-6">
+
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('admin.main.index') }}">Главная</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('admin.user.index') }}">Пользователи</a>
+                            </li>
                             <li class="breadcrumb-item active">Добавление пользователя</li>
                         </ol>
                     </div>
@@ -46,15 +52,7 @@
                                         @enderror
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th><label for="password">Пароль</label></th>
-                                    <td>
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="Введите пароль">
-                                        @error('password')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </td>
-                                </tr>
+
                             </table>
                             <div class="form-group">
                                 <label>Роль</label>

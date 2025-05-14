@@ -32,17 +32,23 @@ use App\Http\Controllers\Admin\User\ShowController as AdminUserShowController;
 use App\Http\Controllers\Admin\User\StoreController as AdminUserStoreController;
 use App\Http\Controllers\Admin\User\UpdateController as AdminUserUpdateController;
 
+use App\Http\Controllers\Personal\Main\IndexController as PersonalMainController;
+
 
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-// vue start page
 Route::get('/', function () {
     return view('index'); // Название blade-файла
 });
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('personal.')->name('personal.')->middleware(['auth', 'verified'])->group(function () {
+    Route::name('main.')->group(function () {
+        Route::get('/', PersonalMainController::class)->name('index');
+    });
+});
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::name('main.')->group(function () {
         Route::get('/', AdminMainController::class)->name('index');
     });
@@ -84,11 +90,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::delete('/{user}', AdminUserDeleteController::class)->name('delete');
     });
 });
-
-
 Route::get('logout', [LoginController::class, 'logout']);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 
 

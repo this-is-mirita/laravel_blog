@@ -24,7 +24,6 @@ class StoreRequest extends FormRequest
         return array(
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|max:255',
             'role' => 'required|integer',
         );
     }
@@ -33,14 +32,10 @@ class StoreRequest extends FormRequest
         return [
             'name.required' => 'обязательно для заполнения ',
             'name.string' => 'емаил должен быть строкой ',
-
             'email.required' => 'обязательно для заполнения ',
             'email.string' => 'емаил должен быть строкой ',
             'email.email' => 'почта должна быть в формате xxxx@xxxx.xx ',
             'email.unique' => 'пользователь с тами емаил существует',
-
-            'password.required' => 'обязательно для заполнения ',
-            'password.string' => 'пароль должен быть строкой ',
         ];
     }
 }
