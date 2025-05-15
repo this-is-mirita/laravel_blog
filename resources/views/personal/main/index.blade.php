@@ -30,8 +30,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$postCount}}</h3>
-
+                                <h3>1</h3>
                                 <p>Понравившиеся посты</p>
                             </div>
                             <div class="icon">

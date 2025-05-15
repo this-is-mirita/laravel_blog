@@ -33,6 +33,9 @@ use App\Http\Controllers\Admin\User\StoreController as AdminUserStoreController;
 use App\Http\Controllers\Admin\User\UpdateController as AdminUserUpdateController;
 
 use App\Http\Controllers\Personal\Main\IndexController as PersonalMainController;
+use App\Http\Controllers\Personal\Liked\IndexController as PersonalLikedController;
+use App\Http\Controllers\Personal\Liked\DeleteController as DeleteLikedController;
+use App\Http\Controllers\Personal\Comment\IndexController as PersonalCommentController;
 
 
 use App\Http\Controllers\Auth\LoginController;
@@ -43,9 +46,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index'); // Название blade-файла
 });
-Route::prefix('personal.')->name('personal.')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('personal')->name('personal.')->middleware(['auth', 'verified'])->group(function () {
     Route::name('main.')->group(function () {
         Route::get('/', PersonalMainController::class)->name('index');
+    });Route::name('liked.')->prefix('liked')->group(function () {
+        Route::get('/', PersonalLikedController::class)->name('index');
+        Route::delete('/{post}', DeleteLikedController::class)->name('delete');
+    });Route::name('comment.')->prefix('comment')->group(function () {
+        Route::get('/', PersonalCommentController::class)->name('index');
     });
 });
 
@@ -81,7 +89,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'verified']
         Route::patch('/{post}', AdminPostUpdateController::class)->name('update');
         Route::delete('/{post}', AdminPostDeleteController::class)->name('delete');
     });
-
     Route::name('user.')->prefix('users')->group(function () {
         Route::get('/', AdminUserController::class)->name('index');
         Route::get('/create', AdminUserCreateController::class)->name('create');
