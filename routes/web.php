@@ -32,20 +32,58 @@ use App\Http\Controllers\Admin\User\ShowController as AdminUserShowController;
 use App\Http\Controllers\Admin\User\StoreController as AdminUserStoreController;
 use App\Http\Controllers\Admin\User\UpdateController as AdminUserUpdateController;
 
+
+
 use App\Http\Controllers\Personal\Main\IndexController as PersonalMainController;
+
 use App\Http\Controllers\Personal\Liked\IndexController as PersonalLikedController;
 use App\Http\Controllers\Personal\Liked\DeleteController as DeleteLikedController;
+
+use App\Http\Controllers\Personal\Comment\DeleteController as PersonalDeleteCommentController;
+use App\Http\Controllers\Personal\Comment\EditController as PersonalEditCommentController;
 use App\Http\Controllers\Personal\Comment\IndexController as PersonalCommentController;
+use App\Http\Controllers\Personal\Comment\UpdateController as PersonalUpdateCommentController;
 
 
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Main\IndexController as MainController;
+use App\Http\Controllers\Post\IndexController as PostIndexController;
+use App\Http\Controllers\Category\IndexController as CategoryIndexController;
+use App\Http\Controllers\Post\ShowController as MainShowController;
+use App\Http\Controllers\Post\Comment\StoreController as StoreCommentController;
+use App\Http\Controllers\Post\Like\StoreController as StoreLikeController;
+use App\Http\Controllers\Category\Post\IndexController as CategoryPostIndexController;
 
-Route::get('/', function () {
-    return view('index'); // Название blade-файла
+
+Route::name('main.')->group(function () {
+    Route::get('/', MainController::class)->name('index');
 });
+Route::prefix('categories')->name('categories.')->group(function () {
+    Route::get('/', CategoryIndexController::class)->name('index');
+
+    Route::prefix('{category}/posts')->name('category.')->group(function () {
+        Route::get('/', CategoryPostIndexController::class)->name('index');
+    });
+});
+
+
+Route::prefix('post')->name('post.')->group(function () {
+    Route::get('/', PostIndexController::class)->name('index');
+    Route::get('/{post}', MainShowController::class)->name('show');
+    //post/1/comments
+    Route::prefix('{post}/comment')->name('comment.')->group(function () {
+        Route::post('/', StoreCommentController::class)->name('store');
+    });
+    Route::prefix('{post}/likes')->name('likes.')->group(function () {
+        Route::post('/', StoreLikeController::class)->name('store');
+    });
+});
+
+
+
 Route::prefix('personal')->name('personal.')->middleware(['auth', 'verified'])->group(function () {
     Route::name('main.')->group(function () {
         Route::get('/', PersonalMainController::class)->name('index');
@@ -54,9 +92,12 @@ Route::prefix('personal')->name('personal.')->middleware(['auth', 'verified'])->
         Route::delete('/{post}', DeleteLikedController::class)->name('delete');
     });Route::name('comment.')->prefix('comment')->group(function () {
         Route::get('/', PersonalCommentController::class)->name('index');
+
+        Route::get('/{comment}/edit', PersonalEditCommentController::class)->name('edit');
+       Route::patch('/{comment}', PersonalUpdateCommentController::class)->name('update');
+        Route::delete('/{comment}', PersonalDeleteCommentController::class)->name('delete');
     });
 });
-
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::name('main.')->group(function () {

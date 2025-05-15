@@ -25,7 +25,49 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>id</th>
+                                        <th>Название</th>
+                                        <th>Контент</th>
+                                        <th colspan="2">Действия</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    @foreach($comments as $comment)
+                                        <tr class="text-center">
+                                            <td>{{$comment->id}}</td>
+                                            <td>{{$comment->message}}</td>
+                                            <td class="text-center">
+
+                                                <a class="text-success" href="{{ route('personal.comment.edit', $comment->id) }}">
+                                                    <i class="nav-icon fas fa-pencil-alt"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <form method="POST"
+                                                      action="{{ route('personal.comment.delete', $comment->id) }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="border-0 bg-transparent">
+                                                        <i class="nav-icon fas fa-trash text-danger" role="button"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->

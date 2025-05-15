@@ -11,7 +11,30 @@
                             <div class="blog-post-thumbnail-wrapper">
                                 <img src="{{ asset('storage/' . $post->preview_image) }}" alt="blog post">
                             </div>
-                            <p class="post-category">{{ $post->category?->title ?? 'Без категории' }}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="post-category">{{ $post->category?->title ?? 'Без категории' }}</p>
+                                @auth()
+                                <form method="post" action="{{ route('post.likes.store', $post->id) }}">
+                                    @csrf
+                                    <span> {{ $post->liked_users_count }} </span>
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        @auth()
+                                            @if(auth()->user()->likedPosts->contains($post->id))
+                                                <i class="nav-icon fas fa-heart"></i>
+                                            @else
+                                                <i class="nav-icon far fa-heart"></i>
+                                            @endif
+                                        @endauth
+                                    </button>
+                                </form>
+                                @endauth
+                                @guest()
+                                    <div>
+                                        <span> {{ $post->liked_users_count }} </span>
+                                        <i class="nav-icon far fa-heart"></i>
+                                    </div>
+                                @endguest
+                            </div>
                             <a href="{{ route('post.show', $post->id) }}" class="blog-post-permalink">
                                 <h6 class="blog-post-title">{{ $post->title }}</h6>
                             </a>
